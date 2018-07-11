@@ -120,29 +120,34 @@ public class CamusJob extends Configured implements Tool {
 				(timingMap.get(name) == null ? 0 : timingMap.get(name))
 						+ System.currentTimeMillis());
 	}
-	
+
 	private Job createJob(Properties props) throws IOException {
-	  Job job; 
-	  if(getConf() == null)
-	    {
-	      setConf(new Configuration()); 
-	    }
-	  
-	  populateConf(props, getConf(), log);
-	  
-	  job = new Job(getConf());
-	  job.setJarByClass(CamusJob.class);
-	  
-	   if(job.getConfiguration().get("camus.job.name") != null)
-	    {
-	      job.setJobName(job.getConfiguration().get("camus.job.name"));
-	    }
-	   else
-	   {
-	     job.setJobName("Camus Job");
-	   }
-	   
-	  return job;
+		Job job;
+		if(getConf() == null)
+		{
+			setConf(new Configuration());
+		}
+
+		populateConf(props, getConf(), log);
+
+		job = new Job(getConf());
+		job.setJarByClass(CamusJob.class);
+
+		if(job.getConfiguration().get("camus.job.name") != null)
+		{
+			job.setJobName(job.getConfiguration().get("camus.job.name"));
+		}
+		else
+		{
+			job.setJobName("Camus Job");
+		}
+
+		// set job queue, if it was not already set before
+		if (job.getConfiguration().get("mapreduce.job.queuename") == null) {
+			job.getConfiguration().set("mapreduce.job.queuename", "root.essentials.camus");
+		}
+
+		return job;
 	}
 
 	public static void populateConf(Properties props, Configuration conf, Logger log) throws IOException {
@@ -528,7 +533,6 @@ public class CamusJob extends Configured implements Tool {
 	}
 
 	@SuppressWarnings("static-access")
-	@Override
 	public int run(String[] args) throws Exception {
 		Options options = new Options();
 
