@@ -16,7 +16,7 @@ for opt in $@
 do
   if [[ $opt == *"camus.job.name"* ]]; then
     job_name=${opt#*=}
-    cat <<EOF | curl --data-binary @- http://prometheus.remerge.io:9091/metrics/job/pushgateway
+    cat <<EOF | curl --data-binary @- http://prometheus.remerge.io:9091/metrics/job/pushgateway/camus_job_name/${job_name}
       # TYPE camus_run_timestamp gauge
       # HELP Last successful run timestamp of camus.
       camus_run_timestamp{instance="$(HOSTNAME)",camus_job_name="${job_name}"} $(date +%s)
