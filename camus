@@ -19,7 +19,7 @@ do
     cat <<EOF | curl --data-binary @- http://prometheus.remerge.io:9091/metrics/job/pushgateway/camus_job_name/${job_name}
       # TYPE camus_run_timestamp gauge
       # HELP Last successful run timestamp of camus.
-      camus_run_timestamp{instance="$(HOSTNAME)",camus_job_name="${job_name}"} $(date +%s)
+      camus_run_timestamp{camus_job_name="${job_name}"} $(date +%s)
 EOF
     break
   fi
