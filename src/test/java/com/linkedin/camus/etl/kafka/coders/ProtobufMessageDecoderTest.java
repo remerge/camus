@@ -6,10 +6,9 @@ import com.linkedin.camus.coders.CamusWrapper;
 import events.protos.TestMessage;
 import mockit.Mock;
 import mockit.MockUp;
+import org.hamcrest.CoreMatchers;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
 import java.time.Clock;
@@ -18,15 +17,14 @@ import java.time.ZoneId;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 public class ProtobufMessageDecoderTest {
     static final String topicName = "test_topic";
     static final String currentTime = "2022-01-01T12:00:00Z";
     static final Clock currentTimeClock = Clock.fixed(Instant.parse(currentTime), ZoneId.systemDefault());
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     private Properties properties;
     private ProtobufMessageDecoder decoder;
@@ -39,31 +37,36 @@ public class ProtobufMessageDecoderTest {
 
     @Test
     public void testInitMessageClassNameDoesntExist() {
-        thrown.expect(InvalidParameterException.class);
-        thrown.expectMessage(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
-                topicName + " is required to be set");
+        InvalidParameterException exception = assertThrows(
+                InvalidParameterException.class,
+                () -> decoder.init(properties, topicName));
 
-        decoder.init(properties, topicName);
+        assertEquals(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
+                topicName + " is required to be set", exception.getMessage());
     }
 
     @Test
     public void testInitMessageClassNameIsEmpty() {
-        thrown.expect(InvalidParameterException.class);
-        thrown.expectMessage(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
-                topicName + " is required to be set");
-
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX + topicName, "");
-        decoder.init(properties, topicName);
+
+        InvalidParameterException exception = assertThrows(
+                InvalidParameterException.class,
+                () -> decoder.init(properties, topicName));
+
+        assertEquals(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
+                topicName + " is required to be set", exception.getMessage());
     }
 
     @Test
     public void testInitMessageClassDoesntExist() {
-        thrown.expect(InvalidParameterException.class);
-        thrown.expectMessage("Unable to load event class");
-
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
                 topicName, "WrongClass");
-        decoder.init(properties, topicName);
+
+        InvalidParameterException exception = assertThrows(
+                InvalidParameterException.class,
+                () -> decoder.init(properties, topicName));
+
+        assertThat(exception.getMessage(), CoreMatchers.containsString("Unable to load event class"));
     }
 
     @Test
@@ -71,12 +74,15 @@ public class ProtobufMessageDecoderTest {
         class WrongClass {
         }
 
-        thrown.expect(InvalidParameterException.class);
-        thrown.expectMessage("Unable to find parseFrom() method in protobuf message class");
-
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
                 topicName, WrongClass.class.getName());
-        decoder.init(properties, topicName);
+
+        InvalidParameterException exception = assertThrows(
+                InvalidParameterException.class,
+                () -> decoder.init(properties, topicName));
+
+        assertThat(exception.getMessage(),
+                CoreMatchers.containsString("Unable to find parseFrom() method in protobuf message class"));
     }
 
     @Test
@@ -88,26 +94,28 @@ public class ProtobufMessageDecoderTest {
 
     @Test
     public void testDecodeEmptyPayload() {
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Empty payload");
-
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
                 topicName, TestMessage.BasicTypes.class.getName());
         decoder.init(properties, topicName);
 
-        decoder.decode(new byte[]{});
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> decoder.decode(new byte[]{}));
+
+        assertThat(exception.getMessage(), CoreMatchers.containsString("Empty payload"));
     }
 
     @Test
     public void testDecodeWrongProtobufMessage() {
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Error parsing protobuf message");
-
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
                 topicName, TestMessage.BasicTypes.class.getName());
         decoder.init(properties, topicName);
 
-        decoder.decode(new byte[]{1, 2, 3});
+        RuntimeException exception = assertThrows(
+                RuntimeException.class,
+                () -> decoder.decode(new byte[]{1, 2, 3}));
+
+        assertThat(exception.getMessage(), CoreMatchers.containsString("Error parsing protobuf message"));
     }
 
     @Test
