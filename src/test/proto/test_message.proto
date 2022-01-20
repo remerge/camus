@@ -4,8 +4,17 @@ package events;
 
 option java_package = "events.protos";
 
+import "google/protobuf/timestamp.proto";
+
 message BasicTypes {
   int32 int_value = 1;
   float float_value = 2;
   string string_value = 3;
+}
+
+message BasicTypesWithTimestamp {
+  google.protobuf.Timestamp ts = 1;
+  int32 int_value = 2;
+  float float_value = 3;
+  string string_value = 4;
 }

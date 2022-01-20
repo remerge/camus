@@ -1,18 +1,25 @@
 package com.linkedin.camus.etl.kafka.coders;
 
+import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
+import com.google.protobuf.Timestamp;
 import com.linkedin.camus.coders.CamusWrapper;
 import com.linkedin.camus.coders.MessageDecoder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.security.InvalidParameterException;
+import java.time.Instant;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
     public static final String PROTOBUF_MESSAGE_CLASS_PREFIX = "camus.protobuf.message.class.";
+    public static final String CAMUS_MESSAGE_TIMESTAMP_FIELD = "camus.message.timestamp.field";
+    public static final String DEFAULT_TIMESTAMP_FIELD = "ts";
 
     private Method messageParseMethod;
+    private String timestampFieldName;
 
     @Override
     public void init(Properties props, String topicName) {
@@ -22,6 +29,8 @@ public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
         if (messageClassForTopic == null || messageClassForTopic.isEmpty()) {
             throw new InvalidParameterException(PROTOBUF_MESSAGE_CLASS_PREFIX + topicName + " is required to be set");
         }
+
+        timestampFieldName = props.getProperty(CAMUS_MESSAGE_TIMESTAMP_FIELD, DEFAULT_TIMESTAMP_FIELD);
 
         try {
             Class<?> eventClass = Class.forName(messageClassForTopic);
@@ -41,7 +50,17 @@ public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
 
         try {
             Message msg = (Message) messageParseMethod.invoke(null, payload);
-            return new CamusWrapper<>(msg, System.currentTimeMillis());
+
+            Descriptors.FieldDescriptor fd = msg.getDescriptorForType().findFieldByName(timestampFieldName);
+            if (fd != null) {
+                Object tsField = msg.getField(fd);
+                if (tsField instanceof Timestamp) {
+                    Timestamp ts = (Timestamp) tsField;
+                    return new CamusWrapper<>(msg, TimeUnit.NANOSECONDS.toMillis(ts.getNanos()));
+                }
+            }
+
+            return new CamusWrapper<>(msg, Instant.now().toEpochMilli());
         } catch (IllegalArgumentException e) {
             throw new RuntimeException("Can't parse protobuf message, since parseMethod() is not callable: " + e.getMessage());
         } catch (IllegalAccessException e) {

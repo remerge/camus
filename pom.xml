@@ -18,6 +18,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <parquet.version>1f0bfa8419</parquet.version>
         <protobuf.version>3.19.3</protobuf.version>
+        <jmockit.version>1.49</jmockit.version>
     </properties>
 
     <dependencies>
@@ -66,7 +67,13 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.1</version>
+            <version>4.13.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jmockit</groupId>
+            <artifactId>jmockit</artifactId>
+            <version>${jmockit.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.scala-lang</groupId>
@@ -191,6 +198,7 @@
                         </goals>
                         <configuration>
                             <protocVersion>${protobuf.version}</protocVersion>
+                            <includeStdTypes>true</includeStdTypes>
                             <addSources>none</addSources>
                             <outputDirectory>src/test/java</outputDirectory>
                             <inputDirectories>
@@ -199,6 +207,15 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}"/org/jmockit/jmockit/${jmockit.version}/jmockit-${jmockit.version}.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>

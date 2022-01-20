@@ -1,20 +1,29 @@
 package com.linkedin.camus.etl.kafka.coders;
 
 import com.google.protobuf.Message;
+import com.google.protobuf.Timestamp;
 import com.linkedin.camus.coders.CamusWrapper;
 import events.protos.TestMessage;
+import mockit.Mock;
+import mockit.MockUp;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.security.InvalidParameterException;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 
 public class ProtobufMessageDecoderTest {
     static final String topicName = "test_topic";
+    static final String currentTime = "2022-01-01T12:00:00Z";
+    static final Clock currentTimeClock = Clock.fixed(Instant.parse(currentTime), ZoneId.systemDefault());
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -103,6 +112,13 @@ public class ProtobufMessageDecoderTest {
 
     @Test
     public void testDecodeSucceeded() {
+        new MockUp<Instant>() {
+            @Mock
+            public Instant now() {
+                return Instant.now(currentTimeClock);
+            }
+        };
+
         properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
                 topicName, TestMessage.BasicTypes.class.getName());
         decoder.init(properties, topicName);
@@ -116,6 +132,31 @@ public class ProtobufMessageDecoderTest {
         CamusWrapper<? extends Message> result = decoder.decode(expectedMsg.toByteArray());
 
         Message resultMsg = result.getRecord();
-        assertEquals(resultMsg, expectedMsg);
+        assertEquals(expectedMsg, resultMsg);
+        assertEquals(currentTimeClock.millis(), result.getTimestamp());
+    }
+
+    @Test
+    public void testDecodeWithTimestampSucceeded() {
+        properties.setProperty(ProtobufMessageDecoder.PROTOBUF_MESSAGE_CLASS_PREFIX +
+                topicName, TestMessage.BasicTypesWithTimestamp.class.getName());
+        decoder.init(properties, topicName);
+
+        Timestamp ts = Timestamp.newBuilder()
+                .setSeconds(TimeUnit.MILLISECONDS.toSeconds(currentTimeClock.millis()))
+                .build();
+
+        TestMessage.BasicTypesWithTimestamp expectedMsg = TestMessage.BasicTypesWithTimestamp.newBuilder()
+                .setTs(ts)
+                .setIntValue(1)
+                .setStringValue("test")
+                .setFloatValue(1.0f)
+                .build();
+
+        CamusWrapper<? extends Message> result = decoder.decode(expectedMsg.toByteArray());
+
+        Message resultMsg = result.getRecord();
+        assertEquals(expectedMsg, resultMsg);
+        assertEquals(ts.getNanos(), result.getTimestamp());
     }
 }

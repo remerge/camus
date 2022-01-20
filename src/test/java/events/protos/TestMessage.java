@@ -724,11 +724,929 @@ public final class TestMessage {
 
   }
 
+  public interface BasicTypesWithTimestampOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:events.BasicTypesWithTimestamp)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     * @return Whether the ts field is set.
+     */
+    boolean hasTs();
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     * @return The ts.
+     */
+    com.google.protobuf.Timestamp getTs();
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     */
+    com.google.protobuf.TimestampOrBuilder getTsOrBuilder();
+
+    /**
+     * <code>int32 int_value = 2;</code>
+     * @return The intValue.
+     */
+    int getIntValue();
+
+    /**
+     * <code>float float_value = 3;</code>
+     * @return The floatValue.
+     */
+    float getFloatValue();
+
+    /**
+     * <code>string string_value = 4;</code>
+     * @return The stringValue.
+     */
+    java.lang.String getStringValue();
+    /**
+     * <code>string string_value = 4;</code>
+     * @return The bytes for stringValue.
+     */
+    com.google.protobuf.ByteString
+        getStringValueBytes();
+  }
+  /**
+   * Protobuf type {@code events.BasicTypesWithTimestamp}
+   */
+  public static final class BasicTypesWithTimestamp extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:events.BasicTypesWithTimestamp)
+      BasicTypesWithTimestampOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BasicTypesWithTimestamp.newBuilder() to construct.
+    private BasicTypesWithTimestamp(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BasicTypesWithTimestamp() {
+      stringValue_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new BasicTypesWithTimestamp();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BasicTypesWithTimestamp(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              com.google.protobuf.Timestamp.Builder subBuilder = null;
+              if (ts_ != null) {
+                subBuilder = ts_.toBuilder();
+              }
+              ts_ = input.readMessage(com.google.protobuf.Timestamp.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(ts_);
+                ts_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 16: {
+
+              intValue_ = input.readInt32();
+              break;
+            }
+            case 29: {
+
+              floatValue_ = input.readFloat();
+              break;
+            }
+            case 34: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              stringValue_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownField(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return events.protos.TestMessage.internal_static_events_BasicTypesWithTimestamp_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return events.protos.TestMessage.internal_static_events_BasicTypesWithTimestamp_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              events.protos.TestMessage.BasicTypesWithTimestamp.class, events.protos.TestMessage.BasicTypesWithTimestamp.Builder.class);
+    }
+
+    public static final int TS_FIELD_NUMBER = 1;
+    private com.google.protobuf.Timestamp ts_;
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     * @return Whether the ts field is set.
+     */
+    @java.lang.Override
+    public boolean hasTs() {
+      return ts_ != null;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     * @return The ts.
+     */
+    @java.lang.Override
+    public com.google.protobuf.Timestamp getTs() {
+      return ts_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : ts_;
+    }
+    /**
+     * <code>.google.protobuf.Timestamp ts = 1;</code>
+     */
+    @java.lang.Override
+    public com.google.protobuf.TimestampOrBuilder getTsOrBuilder() {
+      return getTs();
+    }
+
+    public static final int INT_VALUE_FIELD_NUMBER = 2;
+    private int intValue_;
+    /**
+     * <code>int32 int_value = 2;</code>
+     * @return The intValue.
+     */
+    @java.lang.Override
+    public int getIntValue() {
+      return intValue_;
+    }
+
+    public static final int FLOAT_VALUE_FIELD_NUMBER = 3;
+    private float floatValue_;
+    /**
+     * <code>float float_value = 3;</code>
+     * @return The floatValue.
+     */
+    @java.lang.Override
+    public float getFloatValue() {
+      return floatValue_;
+    }
+
+    public static final int STRING_VALUE_FIELD_NUMBER = 4;
+    private volatile java.lang.Object stringValue_;
+    /**
+     * <code>string string_value = 4;</code>
+     * @return The stringValue.
+     */
+    @java.lang.Override
+    public java.lang.String getStringValue() {
+      java.lang.Object ref = stringValue_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        stringValue_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string string_value = 4;</code>
+     * @return The bytes for stringValue.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getStringValueBytes() {
+      java.lang.Object ref = stringValue_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        stringValue_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (ts_ != null) {
+        output.writeMessage(1, getTs());
+      }
+      if (intValue_ != 0) {
+        output.writeInt32(2, intValue_);
+      }
+      if (java.lang.Float.floatToRawIntBits(floatValue_) != 0) {
+        output.writeFloat(3, floatValue_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stringValue_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, stringValue_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (ts_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getTs());
+      }
+      if (intValue_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, intValue_);
+      }
+      if (java.lang.Float.floatToRawIntBits(floatValue_) != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, floatValue_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(stringValue_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, stringValue_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof events.protos.TestMessage.BasicTypesWithTimestamp)) {
+        return super.equals(obj);
+      }
+      events.protos.TestMessage.BasicTypesWithTimestamp other = (events.protos.TestMessage.BasicTypesWithTimestamp) obj;
+
+      if (hasTs() != other.hasTs()) return false;
+      if (hasTs()) {
+        if (!getTs()
+            .equals(other.getTs())) return false;
+      }
+      if (getIntValue()
+          != other.getIntValue()) return false;
+      if (java.lang.Float.floatToIntBits(getFloatValue())
+          != java.lang.Float.floatToIntBits(
+              other.getFloatValue())) return false;
+      if (!getStringValue()
+          .equals(other.getStringValue())) return false;
+      if (!unknownFields.equals(other.unknownFields)) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasTs()) {
+        hash = (37 * hash) + TS_FIELD_NUMBER;
+        hash = (53 * hash) + getTs().hashCode();
+      }
+      hash = (37 * hash) + INT_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getIntValue();
+      hash = (37 * hash) + FLOAT_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getFloatValue());
+      hash = (37 * hash) + STRING_VALUE_FIELD_NUMBER;
+      hash = (53 * hash) + getStringValue().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static events.protos.TestMessage.BasicTypesWithTimestamp parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(events.protos.TestMessage.BasicTypesWithTimestamp prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code events.BasicTypesWithTimestamp}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:events.BasicTypesWithTimestamp)
+        events.protos.TestMessage.BasicTypesWithTimestampOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return events.protos.TestMessage.internal_static_events_BasicTypesWithTimestamp_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return events.protos.TestMessage.internal_static_events_BasicTypesWithTimestamp_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                events.protos.TestMessage.BasicTypesWithTimestamp.class, events.protos.TestMessage.BasicTypesWithTimestamp.Builder.class);
+      }
+
+      // Construct using events.protos.TestMessage.BasicTypesWithTimestamp.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (tsBuilder_ == null) {
+          ts_ = null;
+        } else {
+          ts_ = null;
+          tsBuilder_ = null;
+        }
+        intValue_ = 0;
+
+        floatValue_ = 0F;
+
+        stringValue_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return events.protos.TestMessage.internal_static_events_BasicTypesWithTimestamp_descriptor;
+      }
+
+      @java.lang.Override
+      public events.protos.TestMessage.BasicTypesWithTimestamp getDefaultInstanceForType() {
+        return events.protos.TestMessage.BasicTypesWithTimestamp.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public events.protos.TestMessage.BasicTypesWithTimestamp build() {
+        events.protos.TestMessage.BasicTypesWithTimestamp result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public events.protos.TestMessage.BasicTypesWithTimestamp buildPartial() {
+        events.protos.TestMessage.BasicTypesWithTimestamp result = new events.protos.TestMessage.BasicTypesWithTimestamp(this);
+        if (tsBuilder_ == null) {
+          result.ts_ = ts_;
+        } else {
+          result.ts_ = tsBuilder_.build();
+        }
+        result.intValue_ = intValue_;
+        result.floatValue_ = floatValue_;
+        result.stringValue_ = stringValue_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof events.protos.TestMessage.BasicTypesWithTimestamp) {
+          return mergeFrom((events.protos.TestMessage.BasicTypesWithTimestamp)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(events.protos.TestMessage.BasicTypesWithTimestamp other) {
+        if (other == events.protos.TestMessage.BasicTypesWithTimestamp.getDefaultInstance()) return this;
+        if (other.hasTs()) {
+          mergeTs(other.getTs());
+        }
+        if (other.getIntValue() != 0) {
+          setIntValue(other.getIntValue());
+        }
+        if (other.getFloatValue() != 0F) {
+          setFloatValue(other.getFloatValue());
+        }
+        if (!other.getStringValue().isEmpty()) {
+          stringValue_ = other.stringValue_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        events.protos.TestMessage.BasicTypesWithTimestamp parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (events.protos.TestMessage.BasicTypesWithTimestamp) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.Timestamp ts_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> tsBuilder_;
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       * @return Whether the ts field is set.
+       */
+      public boolean hasTs() {
+        return tsBuilder_ != null || ts_ != null;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       * @return The ts.
+       */
+      public com.google.protobuf.Timestamp getTs() {
+        if (tsBuilder_ == null) {
+          return ts_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : ts_;
+        } else {
+          return tsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public Builder setTs(com.google.protobuf.Timestamp value) {
+        if (tsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ts_ = value;
+          onChanged();
+        } else {
+          tsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public Builder setTs(
+          com.google.protobuf.Timestamp.Builder builderForValue) {
+        if (tsBuilder_ == null) {
+          ts_ = builderForValue.build();
+          onChanged();
+        } else {
+          tsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public Builder mergeTs(com.google.protobuf.Timestamp value) {
+        if (tsBuilder_ == null) {
+          if (ts_ != null) {
+            ts_ =
+              com.google.protobuf.Timestamp.newBuilder(ts_).mergeFrom(value).buildPartial();
+          } else {
+            ts_ = value;
+          }
+          onChanged();
+        } else {
+          tsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public Builder clearTs() {
+        if (tsBuilder_ == null) {
+          ts_ = null;
+          onChanged();
+        } else {
+          ts_ = null;
+          tsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public com.google.protobuf.Timestamp.Builder getTsBuilder() {
+        
+        onChanged();
+        return getTsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      public com.google.protobuf.TimestampOrBuilder getTsOrBuilder() {
+        if (tsBuilder_ != null) {
+          return tsBuilder_.getMessageOrBuilder();
+        } else {
+          return ts_ == null ?
+              com.google.protobuf.Timestamp.getDefaultInstance() : ts_;
+        }
+      }
+      /**
+       * <code>.google.protobuf.Timestamp ts = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder> 
+          getTsFieldBuilder() {
+        if (tsBuilder_ == null) {
+          tsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.google.protobuf.Timestamp, com.google.protobuf.Timestamp.Builder, com.google.protobuf.TimestampOrBuilder>(
+                  getTs(),
+                  getParentForChildren(),
+                  isClean());
+          ts_ = null;
+        }
+        return tsBuilder_;
+      }
+
+      private int intValue_ ;
+      /**
+       * <code>int32 int_value = 2;</code>
+       * @return The intValue.
+       */
+      @java.lang.Override
+      public int getIntValue() {
+        return intValue_;
+      }
+      /**
+       * <code>int32 int_value = 2;</code>
+       * @param value The intValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setIntValue(int value) {
+        
+        intValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 int_value = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearIntValue() {
+        
+        intValue_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private float floatValue_ ;
+      /**
+       * <code>float float_value = 3;</code>
+       * @return The floatValue.
+       */
+      @java.lang.Override
+      public float getFloatValue() {
+        return floatValue_;
+      }
+      /**
+       * <code>float float_value = 3;</code>
+       * @param value The floatValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setFloatValue(float value) {
+        
+        floatValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>float float_value = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearFloatValue() {
+        
+        floatValue_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object stringValue_ = "";
+      /**
+       * <code>string string_value = 4;</code>
+       * @return The stringValue.
+       */
+      public java.lang.String getStringValue() {
+        java.lang.Object ref = stringValue_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          stringValue_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string string_value = 4;</code>
+       * @return The bytes for stringValue.
+       */
+      public com.google.protobuf.ByteString
+          getStringValueBytes() {
+        java.lang.Object ref = stringValue_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          stringValue_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string string_value = 4;</code>
+       * @param value The stringValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStringValue(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        stringValue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string string_value = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearStringValue() {
+        
+        stringValue_ = getDefaultInstance().getStringValue();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string string_value = 4;</code>
+       * @param value The bytes for stringValue to set.
+       * @return This builder for chaining.
+       */
+      public Builder setStringValueBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        stringValue_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:events.BasicTypesWithTimestamp)
+    }
+
+    // @@protoc_insertion_point(class_scope:events.BasicTypesWithTimestamp)
+    private static final events.protos.TestMessage.BasicTypesWithTimestamp DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new events.protos.TestMessage.BasicTypesWithTimestamp();
+    }
+
+    public static events.protos.TestMessage.BasicTypesWithTimestamp getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BasicTypesWithTimestamp>
+        PARSER = new com.google.protobuf.AbstractParser<BasicTypesWithTimestamp>() {
+      @java.lang.Override
+      public BasicTypesWithTimestamp parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BasicTypesWithTimestamp(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BasicTypesWithTimestamp> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BasicTypesWithTimestamp> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public events.protos.TestMessage.BasicTypesWithTimestamp getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_events_BasicTypes_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_events_BasicTypes_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_events_BasicTypesWithTimestamp_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_events_BasicTypesWithTimestamp_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -738,14 +1656,19 @@ public final class TestMessage {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\022test_message.proto\022\006events\"J\n\nBasicTyp" +
-      "es\022\021\n\tint_value\030\001 \001(\005\022\023\n\013float_value\030\002 \001" +
-      "(\002\022\024\n\014string_value\030\003 \001(\tB\017\n\revents.proto" +
-      "sb\006proto3"
+      "\n\022test_message.proto\022\006events\032\037google/pro" +
+      "tobuf/timestamp.proto\"J\n\nBasicTypes\022\021\n\ti" +
+      "nt_value\030\001 \001(\005\022\023\n\013float_value\030\002 \001(\002\022\024\n\014s" +
+      "tring_value\030\003 \001(\t\"\177\n\027BasicTypesWithTimes" +
+      "tamp\022&\n\002ts\030\001 \001(\0132\032.google.protobuf.Times" +
+      "tamp\022\021\n\tint_value\030\002 \001(\005\022\023\n\013float_value\030\003" +
+      " \001(\002\022\024\n\014string_value\030\004 \001(\tB\017\n\revents.pro" +
+      "tosb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
+          com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_events_BasicTypes_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -753,6 +1676,13 @@ public final class TestMessage {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_events_BasicTypes_descriptor,
         new java.lang.String[] { "IntValue", "FloatValue", "StringValue", });
+    internal_static_events_BasicTypesWithTimestamp_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_events_BasicTypesWithTimestamp_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_events_BasicTypesWithTimestamp_descriptor,
+        new java.lang.String[] { "Ts", "IntValue", "FloatValue", "StringValue", });
+    com.google.protobuf.TimestampProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)
