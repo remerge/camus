@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package events;
+
+option java_package = "events.protos";
+
+message BasicTypes {
+  int32 int_value = 1;
+  float float_value = 2;
+  string string_value = 3;
+}

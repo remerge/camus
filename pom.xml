@@ -17,6 +17,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <parquet.version>1f0bfa8419</parquet.version>
+        <protobuf.version>3.19.3</protobuf.version>
     </properties>
 
     <dependencies>
@@ -80,7 +81,7 @@
         <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
-            <version>3.19.3</version>
+            <version>${protobuf.version}</version>
         </dependency>
         <dependency>
             <groupId>com.github.remerge.parquet-mr</groupId>
@@ -177,6 +178,27 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.os72</groupId>
+                <artifactId>protoc-jar-maven-plugin</artifactId>
+                <version>3.11.4</version>
+                <executions>
+                    <execution>
+                        <phase>generate-test-sources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <protocVersion>${protobuf.version}</protocVersion>
+                            <addSources>none</addSources>
+                            <outputDirectory>src/test/java</outputDirectory>
+                            <inputDirectories>
+                                <include>src/test/proto</include>
+                            </inputDirectories>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
