@@ -30,7 +30,7 @@ public class ProtobufMessageDecoderTest {
     private ProtobufMessageDecoder decoder;
 
     @Before
-    public void initTest() {
+    public void beforeTest() {
         properties = new Properties();
         decoder = new ProtobufMessageDecoder();
     }
