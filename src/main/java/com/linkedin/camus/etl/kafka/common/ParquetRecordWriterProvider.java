@@ -16,7 +16,7 @@ import org.apache.parquet.proto.ProtoParquetWriter;
 import java.io.IOException;
 
 public class ParquetRecordWriterProvider implements RecordWriterProvider {
-    public final static String EXT = ".gz";
+    public final static String EXT = ".parquet";
 
     public final static String PARQUET_BLOCK_SIZE = "parquet.block.size";
     public final static int PARQUET_DEFAULT_BLOCK_SIZE = 134217728;
