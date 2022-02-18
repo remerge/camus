@@ -5,6 +5,7 @@ import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
 import com.linkedin.camus.coders.CamusWrapper;
 import com.linkedin.camus.coders.MessageDecoder;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,6 +19,7 @@ public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
     public static final String CAMUS_MESSAGE_TIMESTAMP_FIELD = "camus.message.timestamp.field";
     public static final String DEFAULT_TIMESTAMP_FIELD = "ts";
 
+    private static org.apache.log4j.Logger log = Logger.getLogger(ProtobufMessageDecoder.class);
     private Method messageParseMethod;
     private String timestampFieldName;
 
@@ -59,6 +61,8 @@ public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
                     return new CamusWrapper<>(msg, TimeUnit.NANOSECONDS.toMillis(ts.getNanos()));
                 }
             }
+
+            log.warn("Couldn't find timestamp field '" + timestampFieldName + "' in Protobuf message, defaulting to current time.");
 
             return new CamusWrapper<>(msg, Instant.now().toEpochMilli());
         } catch (IllegalArgumentException e) {
