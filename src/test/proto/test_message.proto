@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package events;
+
+option java_package = "events.protos";
+
+import "google/protobuf/timestamp.proto";
+
+message BasicTypes {
+  int32 int_value = 1;
+  float float_value = 2;
+  string string_value = 3;
+}
+
+message BasicTypesWithTimestamp {
+  google.protobuf.Timestamp ts = 1;
+  int32 int_value = 2;
+  float float_value = 3;
+  string string_value = 4;
+}
+
+message ComplexTypesWithTimestamp {
+  google.protobuf.Timestamp ts = 1;
+  BasicTypes basic = 2;
+  repeated string repeated_string = 3;
+  Reason reason = 4;
+  repeated BasicTypesWithTimestamp repeated_basic_with_timestamp = 5;
+
+}
+enum Reason {
+  OtherError = 0;
+  Invalid = 1;
+  Valid = 2;
+}
