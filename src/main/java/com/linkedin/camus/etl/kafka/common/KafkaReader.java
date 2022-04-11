@@ -106,15 +106,22 @@ public class KafkaReader {
 			Message message = msgAndOffset.message();
 
 			ByteBuffer buf = message.payload();
-			int origSize = buf.remaining();
-			byte[] bytes = new byte[origSize];
-			buf.get(bytes, buf.position(), origSize);
-			payload.set(bytes, 0, origSize);
+			// hotfix: camus is crashing on messages with null values
+			// we do not know how these have been produced, but we need to skip them
+			if (buf != null) {
+				int origSize = buf.remaining();
+				byte[] bytes = new byte[origSize];
+				buf.get(bytes, buf.position(), origSize);
+				payload.set(bytes, 0, origSize);
+			} else {
+				// not sure if this is needed
+				payload.set(new byte[0], 0, 0);
+			}
 
 			buf = message.key();
 			if(buf != null){
-				origSize = buf.remaining();
-				bytes = new byte[origSize];
+				int origSize = buf.remaining();
+				byte[] bytes = new byte[origSize];
 				buf.get(bytes, buf.position(), origSize);
 				pKey.set(bytes, 0, origSize);
 			}
