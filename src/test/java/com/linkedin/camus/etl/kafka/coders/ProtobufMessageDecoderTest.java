@@ -2,6 +2,7 @@ package com.linkedin.camus.etl.kafka.coders;
 
 import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
+import com.google.protobuf.util.Timestamps;
 import com.linkedin.camus.coders.CamusWrapper;
 import events.protos.TestMessage;
 import mockit.Mock;
@@ -165,6 +166,6 @@ public class ProtobufMessageDecoderTest {
 
         Message resultMsg = result.getRecord();
         assertEquals(expectedMsg, resultMsg);
-        assertEquals(ts.getNanos(), result.getTimestamp());
+        assertEquals(Timestamps.toMillis(ts), result.getTimestamp());
     }
 }
