@@ -3,6 +3,7 @@ package com.linkedin.camus.etl.kafka.coders;
 import com.google.protobuf.Descriptors;
 import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
+import com.google.protobuf.util.Timestamps;
 import com.linkedin.camus.coders.CamusWrapper;
 import com.linkedin.camus.coders.MessageDecoder;
 import org.apache.log4j.Logger;
@@ -12,7 +13,6 @@ import java.lang.reflect.Method;
 import java.security.InvalidParameterException;
 import java.time.Instant;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
     public static final String PROTOBUF_MESSAGE_CLASS_PREFIX = "camus.protobuf.message.class.";
@@ -58,7 +58,7 @@ public class ProtobufMessageDecoder extends MessageDecoder<byte[], Message> {
                 Object tsField = msg.getField(fd);
                 if (tsField instanceof Timestamp) {
                     Timestamp ts = (Timestamp) tsField;
-                    return new CamusWrapper<>(msg, TimeUnit.NANOSECONDS.toMillis(ts.getNanos()));
+                    return new CamusWrapper<>(msg, Timestamps.toMillis(ts));
                 }
             }
 
