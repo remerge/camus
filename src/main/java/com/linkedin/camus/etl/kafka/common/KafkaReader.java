@@ -105,23 +105,24 @@ public class KafkaReader {
 			MessageAndOffset msgAndOffset = messageIter.next();
 			Message message = msgAndOffset.message();
 
+            currentOffset = msgAndOffset.offset() + 1; // increase offset
+            currentCount++; // increase count
+
 			ByteBuffer buf = message.payload();
-			// hotfix: camus is crashing on messages with null values
-			// we do not know how these have been produced, but we need to skip them
-			if (buf != null) {
-				int origSize = buf.remaining();
-				byte[] bytes = new byte[origSize];
-				buf.get(bytes, buf.position(), origSize);
-				payload.set(bytes, 0, origSize);
-			} else {
-				// not sure if this is needed
-				payload.set(new byte[0], 0, 0);
-			}
+            if (buf == null || buf.remaining() == 0) {
+                log.warn("Message has empty payload");
+                return true;
+            }
+
+            int origSize = buf.remaining();
+            byte[] bytes = new byte[origSize];
+            buf.get(bytes, buf.position(), origSize);
+            payload.set(bytes, 0, origSize);
 
 			buf = message.key();
 			if(buf != null){
-				int origSize = buf.remaining();
-				byte[] bytes = new byte[origSize];
+				origSize = buf.remaining();
+				bytes = new byte[origSize];
 				buf.get(bytes, buf.position(), origSize);
 				pKey.set(bytes, 0, origSize);
 			}
@@ -130,9 +131,6 @@ public class KafkaReader {
 			key.set(kafkaRequest.getTopic(), kafkaRequest.getLeaderId(),
 					kafkaRequest.getPartition(), currentOffset,
 					msgAndOffset.offset() + 1, message.checksum());
-
-			currentOffset = msgAndOffset.offset() + 1; // increase offset
-			currentCount++; // increase count
 
 			return true;
 		} else {
