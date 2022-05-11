@@ -224,6 +224,11 @@ public class EtlRecordReader extends RecordReader<EtlKey, CamusWrapper> {
                     context.progress();
                     mapperContext.getCounter("total", "data-read").increment(msgValue.getLength());
                     mapperContext.getCounter("total", "event-count").increment(1);
+
+                    if (msgValue.getLength() == 0) {
+                        continue;
+                    }
+
                     byte[] bytes = getBytes(msgValue);
                     byte[] keyBytes = getBytes(msgKey);
                     // check the checksum of message.
