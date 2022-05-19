@@ -110,6 +110,7 @@ public class KafkaReader {
 
 			ByteBuffer buf = message.payload();
             if (buf == null || buf.remaining() == 0) {
+                payload.set(new byte[0], 0, 0);
                 log.warn("Message has empty payload");
                 return true;
             }
