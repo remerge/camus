@@ -245,20 +245,7 @@ public class EtlRecordReader extends RecordReader<EtlKey, CamusWrapper> {
                     }
 
                     long tempTime = System.currentTimeMillis();
-                    CamusWrapper wrapper;
-                    try {
-                        wrapper = getWrappedRecord(key.getTopic(), bytes);
-                    } catch (Exception e) {
-                        if (exceptionCount < getMaximumDecoderExceptionsToPrint(context)) {
-                            mapperContext.write(key, new ExceptionWritable(e));
-                            exceptionCount++;
-                        } else if (exceptionCount == getMaximumDecoderExceptionsToPrint(context)) {
-                            exceptionCount = Integer.MAX_VALUE; //Any random value
-                            log.info("The same exception has occured for more than " + getMaximumDecoderExceptionsToPrint(context) + " records. All further exceptions will not be printed");
-                        }
-                        continue;
-                    }
-
+                    CamusWrapper wrapper = getWrappedRecord(key.getTopic(), bytes);
                     if (wrapper == null) {
                         mapperContext.write(key, new ExceptionWritable(new RuntimeException(
                                 "null record")));
