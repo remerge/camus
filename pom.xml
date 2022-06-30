@@ -16,7 +16,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <parquet.version>1f0bfa8419</parquet.version>
+        <parquet.version>2f37c9f5e</parquet.version>
         <protobuf.version>3.19.3</protobuf.version>
         <jmockit.version>1.49</jmockit.version>
     </properties>
