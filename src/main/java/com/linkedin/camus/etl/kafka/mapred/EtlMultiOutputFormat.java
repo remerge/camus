@@ -18,10 +18,10 @@ import org.joda.time.format.DateTimeFormatter;
 
 import com.linkedin.camus.etl.Partitioner;
 import com.linkedin.camus.etl.RecordWriterProvider;
-import com.linkedin.camus.etl.kafka.common.AvroRecordWriterProvider;
 import com.linkedin.camus.etl.kafka.common.DateUtils;
 import com.linkedin.camus.etl.kafka.common.EtlKey;
 import com.linkedin.camus.etl.kafka.partitioner.DefaultPartitioner;
+import com.linkedin.camus.etl.kafka.common.StringRecordWriterProvider;
 
 
 /**
@@ -81,17 +81,22 @@ public class EtlMultiOutputFormat extends FileOutputFormat<EtlKey, Object> {
   }
 
   public static Class<RecordWriterProvider> getRecordWriterProviderClass(JobContext job) {
-    return (Class<RecordWriterProvider>) job.getConfiguration().getClass(ETL_RECORD_WRITER_PROVIDER_CLASS,
-        AvroRecordWriterProvider.class);
+    return (Class<RecordWriterProvider>) job.getConfiguration()
+      .getClass(ETL_RECORD_WRITER_PROVIDER_CLASS,
+                StringRecordWriterProvider.class);
   }
 
   public static RecordWriterProvider getRecordWriterProvider(JobContext job) {
-    try {
-      return (RecordWriterProvider) job.getConfiguration()
-          .getClass(ETL_RECORD_WRITER_PROVIDER_CLASS, AvroRecordWriterProvider.class).newInstance();
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+    try
+      {
+        return (RecordWriterProvider) job.getConfiguration()
+          .getClass(ETL_RECORD_WRITER_PROVIDER_CLASS,
+                    StringRecordWriterProvider.class).newInstance();
+      }
+    catch (Exception e)
+      {
+        throw new RuntimeException(e);
+      }
   }
 
   public static void setDefaultTimeZone(JobContext job, String tz) {
