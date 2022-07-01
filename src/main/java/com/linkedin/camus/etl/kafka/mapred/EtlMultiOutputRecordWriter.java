@@ -3,6 +3,8 @@ package com.linkedin.camus.etl.kafka.mapred;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.SortedMap;
 
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
@@ -30,6 +32,9 @@ public class EtlMultiOutputRecordWriter extends RecordWriter<EtlKey, Object>
 
   private HashMap<String, RecordWriter<IEtlKey, CamusWrapper>> dataWriters =
       new HashMap<String, RecordWriter<IEtlKey, CamusWrapper>>();
+
+  private HashMap<String, LinkedList<String>> paritionedFiles = new HashMap<>();
+  private static final int numberOfPartitionedFiles = 2;
 
   private EtlMultiOutputCommitter committer;
 
@@ -94,14 +99,27 @@ public class EtlMultiOutputRecordWriter extends RecordWriter<EtlKey, Object>
             writer.close(context);
           }
           dataWriters.clear();
+          paritionedFiles.clear();
           currentTopic = key.getTopic();
         }
 
         committer.addCounts(key);
         CamusWrapper value = (CamusWrapper) val;
         String workingFileName = EtlMultiOutputFormat.getWorkingFileName(context, key);
+        String baseFileName = EtlMultiOutputFormat.getBaseFileName(context, key);
         if (!dataWriters.containsKey(workingFileName))
         {
+          LinkedList<String> partitions = paritionedFiles.computeIfAbsent(baseFileName, k -> new LinkedList<>());
+
+          if (partitions.size() == numberOfPartitionedFiles) {
+            String fileName = baseFileName + "." + partitions.poll();
+            dataWriters.get(fileName).close(context);
+            dataWriters.remove(fileName);
+          }
+
+          String newPartition = EtlMultiOutputFormat.getPartitioner(context, key.getTopic()).encodePartition(context, key);
+          partitions.offer(newPartition);
+
           dataWriters.put(workingFileName, getDataRecordWriter(context, workingFileName, value));
           log.info("Writing to data file: " + workingFileName);
         }
